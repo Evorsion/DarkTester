@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Test your dark mode and accent color contrast</title>
+        <meta name="description" content="Does your color choice work? Pick a color and check, whether your colors work in both light and dark UI modes.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+    <body class="light-color-bg">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="layout">
+            <div class="options">
+                <h1>Does The Color Work?</h1>
+                <p>Pick a color and check, whether your color coice works in both light and dark UI modes</p>
+                <div class="colors contrast-shadow">
+                    <button id="blue" aria-label="blue">&nbsp;</button>
+                    <button id="orange" aria-label="orange">&nbsp;</button>
+                    <button id="purple" aria-label="purple">&nbsp;</button>
+                </div>
+            </div>
+            <div class="components">
+                <div class="component light contrast-shadow">
+                    <h2>Heading</h2>
+                    <p><span class="light-color-fg">Lorem ipsum</span> dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                    <input type="text" placeholder="text" aria-label="text">
+                    <button class="light-color-bg">Button</button>
+                </div>
+                <div class="component dark contrast-shadow">
+                    <h2>Heading</h2>
+                    <p><span class="light-color-fg">Lorem ipsum</span> dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                    <input type="text" placeholder="text" aria-label="text">
+                    <button class="light-color-bg">Button</button>
+                </div>
+            </div>
+        </div>
+
+        
+        <script>
+            let ChangeColor = function(color){
+                let foregroundElements = document.getElementsByClassName("light-color-fg");
+                let backgroundElements = document.getElementsByClassName("light-color-bg");
+                for(let i = 0; i < foregroundElements.length; i++){
+                    foregroundElements[i].style.color = color;
+                }
+                for(let i = 0; i < backgroundElements.length; i++){
+                    backgroundElements[i].style.background = color;
+                }
+            }
+
+            let buttons = ['blue', 'orange', 'purple'];
+            
+            document.addEventListener("DOMContentLoaded", function(){
+                //SETUP BUTTONS
+                for(let i = 0; i < buttons.length; i++){
+                    let button = document.getElementById(buttons[i]);
+                    let color = window.getComputedStyle(button, null).getPropertyValue('background-color');
+                    button.addEventListener('click',
+                        function(){
+                            ChangeColor(color);
+                            event.stopPropagation();
+                        }
+                    );
+                }
+            });
+
+            document.addEventListener('click', function(){
+                let foregroundElements = document.getElementsByClassName("light-color-fg");
+                let backgroundElements = document.getElementsByClassName("light-color-bg");
+                for(let i = 0; i < foregroundElements.length; i++){
+                    foregroundElements[i].style.color = '';
+                }
+                for(let i = 0; i < backgroundElements.length; i++){
+                    backgroundElements[i].style.background = '';
+                }
+            })
+            
+            
+        </script>
+    </body>
+</html>
